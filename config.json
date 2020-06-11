@@ -1,20 +1,24 @@
 {
     "port": 1337,
     "security": {
-        "tokenLife" : 3600
+        "tokenLife" : 3600,
+        "tokenLifeStr" : "1h"
     },
     "mongoose": {
-        "uri": "mongodb://localhost/apiDB"
+        "uri": "mongodb://localhost/commonApiDB"
     },
     "default": {
         "user": {
-            "username": "myapi",
-            "password": "abc1234"
+            "username": "common",
+            "password": "123456"
         },
         "client": {
-            "name": "Android API v1",
-            "clientId": "android",
-            "clientSecret": "SomeRandomCharsAndNumbers"
+            "name": "web API v1",
+            "clientId": "web",
+            "clientSecret": "web-api-v1"
         }
+    },
+    "jwt": {
+        "privateKey": "common"
     }
 }

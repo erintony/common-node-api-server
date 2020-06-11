@@ -12,6 +12,9 @@ var User = require(libs + 'model/user');
 var AccessToken = require(libs + 'model/accessToken');
 var RefreshToken = require(libs + 'model/refreshToken');
 
+var jwt = require('jsonwebtoken');
+
+
 // Create OAuth 2.0 server
 var aserver = oauth2orize.createServer();
 
@@ -28,15 +31,14 @@ var generateTokens = function (data, done) {
     // Curries in `done` callback so we don't need to pass it
     var errorHandler = errFn.bind(undefined, done),
         refreshToken,
-        refreshTokenValue,
-        token,
-        tokenValue;
+        token;
 
     RefreshToken.deleteMany(data, errorHandler);
     AccessToken.deleteMany(data, errorHandler);
 
-    tokenValue = crypto.randomBytes(32).toString('hex');
-    refreshTokenValue = crypto.randomBytes(32).toString('hex');
+    // tokenValue = crypto.randomBytes(32).toString('hex');
+    // refreshTokenValue = crypto.randomBytes(32).toString('hex');
+    let { tokenValue, refreshTokenValue } = generateJwtTokens(data);
 
     data.token = tokenValue;
     token = new AccessToken(data);
@@ -57,6 +59,18 @@ var generateTokens = function (data, done) {
         });
     });
 };
+
+// Destroy any old tokens and generates a new access and refresh token
+// 生成jwt token
+function generateJwtTokens (data) {
+    const privateKey = config.get('jwt:privateKey');
+    const tokenLifeStr = config.get('security:tokenLifeStr');
+    var tokenValue = jwt.sign(data, privateKey, { expiresIn: tokenLifeStr});
+    data.refresh = true;
+    var refreshTokenValue = jwt.sign(data, privateKey, { expiresIn: tokenLifeStr});
+    return { tokenValue, refreshTokenValue };
+};
+
 
 // Exchange username & password for access token
 aserver.exchange(oauth2orize.exchange.password(function (client, username, password, scope, done) {

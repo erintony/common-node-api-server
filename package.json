@@ -1,5 +1,5 @@
 {
-    "name": "NodeAPI",
+    "name": "common-node-api-server",
     "version": "1.0.0",
     "author": "Evgeny Aleksandrov",
     "description": "Simple example of RESTful API with Node.js and passport",
@@ -13,6 +13,7 @@
         "body-parser": "^1.18.x",
         "express": "^4.16.x",
         "faker": "^4.1.x",
+        "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.7.6",
         "nconf": "^0.10.x",
         "oauth2orize": "^1.11.x",

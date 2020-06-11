@@ -1,5 +1,5 @@
 {
     "mongoose": {
-        "uri": "mongodb://mongo/apiDB"
+        "uri": "mongodb://mongo/commonApiDB"
     }
 }
