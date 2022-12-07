@@ -11,7 +11,7 @@
     },
     "dependencies": {
         "body-parser": "^1.18.x",
-        "express": "^4.16.x",
+        "express": "^4.17.x",
         "faker": "^4.1.x",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.7.6",
